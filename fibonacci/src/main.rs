@@ -1,4 +1,6 @@
-fn fibonacci(n: usize) -> usize {
+use std::collections::HashMap;
+
+fn fibonacci_mem(n: usize, memory: &HashMap<usize,usize>) -> usize {
     match n {
         0 => return 0,
         1 => return 1,
@@ -6,7 +8,20 @@ fn fibonacci(n: usize) -> usize {
         _ => (),
     }
 
-    return fibonacci(n-1) + fibonacci(n-2);
+    match memory.get(&n) {
+        Some(&val) => return val,
+        _ => (),
+    }
+
+    return fibonacci_mem(n-1, &memory) + fibonacci_mem(n-2, &memory);
+}
+
+fn fibonacci(n: usize) -> usize {
+    let mut memory = HashMap::new();
+
+    memory.insert(n, fibonacci_mem(n, &memory));
+
+    return fibonacci_mem(n-1, &memory) + fibonacci_mem(n-2, &memory);
 }
 
 fn main() {
