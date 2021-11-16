@@ -29,13 +29,7 @@ fn main() {
             print!(", ");
         }
         match i {
-            0..=1 => (),
-            2 => {
-                if *val {
-                    print!("{}", i);
-                }
-            }
-            3..=N => {
+            2..=N => {
                 if *val {
                     print!("{}", i);
                 }
